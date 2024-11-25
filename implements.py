@@ -36,7 +36,7 @@ class Block(Basic):
     def collide(self):
         # ============================================
         # TODO: Implement an event when block collides with a ball
-        self.alive = False #alive를 False로 바꾼다!
+        self.alive = False #alive를 False
 
 class Paddle(Basic):
     def __init__(self):
@@ -67,18 +67,18 @@ class Ball(Basic):
     def collide_block(self, blocks: list): #공이 블록과 부딪혓을 때의 공의 이벤트 처리
         # ============================================
         # TODO: Implement an event when the ball hits a block
-        for block in blocks: #blocks리스트에 있는 블록 중
+        for block in blocks: # blocks리스트에 있는 블록 중
             if(block.alive and self.rect.colliderect(block.rect)):
-                # 어떤 블록이 alive가 true이면서 공이 블록과 겹치면..
-
+                # 어떤 블록이 alive==true이면서 공이 블록과 겹치고..
+                #블록의 세로면과 충돌한다면
                 if self.rect.right >= block.rect.left and self.rect.left <= block.rect.right:
                     self.dir = 360 - self.dir
+                #블록의 가로면과 충돌한다면
                 elif self.rect.bottom >= block.rect.top and self.rect.top <= block.rect.bottom:
                     self.dir = 180 - self.dir
 
                 block.collide() # 블록 삭제 (블록의 collide()함수 호출)
                 blocks.remove(block) #blocks 리스트에서 부딪힌 블록 삭제
-
                 break
 
     def collide_paddle(self, paddle: Paddle) -> None: #공이 패들과 부딪혔을 때
@@ -88,10 +88,8 @@ class Ball(Basic):
     def hit_wall(self): #공과 벽이 충돌했을 때 공의 이벤트 처리
         # ============================================
         # TODO: Implement a service that bounces off when the ball hits the wall
-        #display_dimension = (600, 800)
         # 좌우 벽 충돌
         if self.rect.left < 0 or self.rect.right > config.display_dimension[0]:
-            #게임화면보다 왼쪽,오른쪽이면...
             self.dir = 180 -self.dir
         # 상단 벽 충돌
         elif self.rect.top < 0:
@@ -100,7 +98,7 @@ class Ball(Basic):
     def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
-        if self.rect.bottom > config.display_dimension[1]:
+        if self.rect.bottom > config.display_dimension[1]: #공이 아래쪽으로 빠지면 
             config.life = config.life - 1
             return False
         return True
