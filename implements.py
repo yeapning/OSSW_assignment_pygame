@@ -71,6 +71,7 @@ class Ball(Basic):
             if(block.alive and self.rect.colliderect(block.rect)):
                 # 어떤 블록이 alive가 true이면서 공이 블록과 겹치면..
                 block.collide() # 블록 삭제 (블록의 collide()함수 호출)
+                blocks.remove(block) #blocks 리스트에서 부딪힌 블록 삭제
                 self.dir = -self.dir #블록에 부딪힌 반대 방향으로 공 반사
 
     def collide_paddle(self, paddle: Paddle) -> None: #공이 패들과 부딪혔을 때
