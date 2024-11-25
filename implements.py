@@ -94,6 +94,4 @@ class Ball(Basic):
     def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
-        if self.rect.bottom > config.display_dimension[1]:
-            config.life = config.life - 1
-            return False
+        
