@@ -70,9 +70,16 @@ class Ball(Basic):
         for block in blocks: #blocks리스트에 있는 블록 중
             if(block.alive and self.rect.colliderect(block.rect)):
                 # 어떤 블록이 alive가 true이면서 공이 블록과 겹치면..
+
+                if self.rect.right >= block.rect.left and self.rect.left <= block.rect.right:
+                    self.dir = 360 - self.dir
+                elif self.rect.bottom >= block.rect.top and self.rect.top <= block.rect.bottom:
+                    self.dir = 180 - self.dir
+
                 block.collide() # 블록 삭제 (블록의 collide()함수 호출)
                 blocks.remove(block) #blocks 리스트에서 부딪힌 블록 삭제
-                self.dir = -self.dir #블록에 부딪힌 반대 방향으로 공 반사
+
+                break
 
     def collide_paddle(self, paddle: Paddle) -> None: #공이 패들과 부딪혔을 때
         if self.rect.colliderect(paddle.rect):
@@ -88,7 +95,7 @@ class Ball(Basic):
             self.dir = 180 -self.dir
         # 상단 벽 충돌
         elif self.rect.top < 0:
-            self.dir = 360-self.dir
+            self.dir = 360 - self.dir
     
     def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
