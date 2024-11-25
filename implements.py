@@ -30,13 +30,14 @@ class Block(Basic):
         self.pos = pos
         self.alive = alive
 
-    def draw(self, surface) -> None:
+    def draw(self, surface) -> None: #surface에 블록 생성
         pygame.draw.rect(surface, self.color, self.rect)
     
     def collide(self):
         # ============================================
         # TODO: Implement an event when block collides with a ball
-        pass
+        self.alive = False #alive를 False로 바꾼다!
+        self.color=(0,0,0) #배경색과 블록 색을 동일하게 하여 화면에서 없어지게 만든다!
 
 
 class Paddle(Basic):
@@ -46,7 +47,7 @@ class Paddle(Basic):
         self.speed = config.paddle_speed
         self.cur_size = config.paddle_size
 
-    def draw(self, surface):
+    def draw(self, surface): #surface에 패들 생성
         pygame.draw.rect(surface, self.color, self.rect)
 
     def move_paddle(self, event: pygame.event.Event):
@@ -62,27 +63,31 @@ class Ball(Basic):
         self.power = 1
         self.dir = 90 + random.randint(-45, 45)
 
-    def draw(self, surface):
+    def draw(self, surface): #surface에 공 생성
         pygame.draw.ellipse(surface, self.color, self.rect)
 
-    def collide_block(self, blocks: list):
+    def collide_block(self, blocks: list): #공이 블록과 부딪혓을 때의 공의 이벤트 처리
         # ============================================
         # TODO: Implement an event when the ball hits a block
         pass
-
-    def collide_paddle(self, paddle: Paddle) -> None:
+    
+    def collide_paddle(self, paddle: Paddle) -> None: #공이 패들과 부딪혔을 때
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
 
-    def hit_wall(self):
+    def hit_wall(self): #공과 벽이 충돌했을 때 공의 이벤트 처리
         # ============================================
         # TODO: Implement a service that bounces off when the ball hits the wall
+        #display_dimension = (600, 800)
+        #ball_size = (20, 20)
+        
         pass
         # 좌우 벽 충돌
         
+        
         # 상단 벽 충돌
     
-    def alive(self):
+    def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
         pass
