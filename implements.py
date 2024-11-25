@@ -96,3 +96,4 @@ class Ball(Basic):
         if self.rect.bottom > config.display_dimension[1]:
             config.life = config.life - 1
             return False
+        return True
