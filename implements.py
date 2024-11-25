@@ -85,6 +85,7 @@ class Ball(Basic):
         #display_dimension = (600, 800)
         # 좌우 벽 충돌
         if self.rect.left < 0 or self.rect.right > config.display_dimension[0]:
+            #게임화면보다 왼쪽,오른쪽이면...
             self.dir = 180 -self.dir
         # 상단 벽 충돌
         elif self.rect.top < 0:
@@ -93,4 +94,6 @@ class Ball(Basic):
     def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
-        pass
+        if self.rect.bottom > config.display_dimension[1]:
+            config.life = config.life - 1
+            return False
