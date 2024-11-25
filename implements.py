@@ -69,8 +69,12 @@ class Ball(Basic):
     def collide_block(self, blocks: list): #공이 블록과 부딪혓을 때의 공의 이벤트 처리
         # ============================================
         # TODO: Implement an event when the ball hits a block
-        pass
-    
+        for block in blocks: #blocks리스트에 있는 블록 중
+            if(block.alive and self.rect.colliderect(block.rect)):
+                # 어떤 블록이 alive가 true이면서 공이 블록과 겹치면..
+                block.collide() # 블록 삭제 (블록의 collide()함수 호출)
+                self.dir = -self.dir #블록에 부딪힌 반대 방향으로 공 반사
+
     def collide_paddle(self, paddle: Paddle) -> None: #공이 패들과 부딪혔을 때
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
@@ -80,7 +84,6 @@ class Ball(Basic):
         # TODO: Implement a service that bounces off when the ball hits the wall
         #display_dimension = (600, 800)
         #ball_size = (20, 20)
-        
         pass
         # 좌우 벽 충돌
         
