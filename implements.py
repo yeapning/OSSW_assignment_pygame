@@ -37,8 +37,6 @@ class Block(Basic):
         # ============================================
         # TODO: Implement an event when block collides with a ball
         self.alive = False #alive를 False로 바꾼다!
-        self.color=(0,0,0) #배경색과 블록 색을 동일하게 하여 화면에서 없어지게 만든다!
-
 
 class Paddle(Basic):
     def __init__(self):
@@ -94,4 +92,6 @@ class Ball(Basic):
     def alive(self): #공이 살아 있는지의 여부를 확인하는 함수
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
-        
+        if self.rect.bottom > config.display_dimension[1]:
+            config.life = config.life - 1
+            return False
